@@ -5,17 +5,17 @@ slug: /
 
 # What is Root14?
 
-**Root14** is the ZK privacy standard for Stellar. It enables private transfers on Soroban using Groth16 zero-knowledge proofs over BLS12-381.
+**Root14** is a ZK privacy platform for Stellar. Developers use modular circuits, a zkTLS bridge, and an on-chain verifier to add zero-knowledge features to any Soroban app — without touching cryptography.
 
-`r14-sdk` is the client library that gives your Rust application everything it needs to:
+10 Rust crates. 100+ tests. 6 circuit types. On-chain verifier. zkTLS. SDK. Indexer. CLI. Docs.
 
-- Generate keys and manage wallets
-- Create private notes (UTXOs) with Poseidon commitments
-- Compute and verify Merkle roots
-- Serialize Groth16 proofs for Soroban contracts
-- Submit deposits and transfers on-chain
+Root14 gives you:
 
-Pair it with `r14-circuit` for ZK proof generation to get the full private transfer pipeline.
+- **Privacy modules** — Transfer, Range, Membership, Ownership, Preimage, zkTLS
+- **Shared verifier** — `r14-core` on Soroban: register any circuit, any app calls `verify()`
+- **zkTLS bridge** — Prove claims about web2 data (bank balances, IDs) on-chain
+- **Developer SDK** — Wallet, serialization, Merkle proofs, transaction submission
+- **Infrastructure** — Event indexer, CLI, documentation
 
 ## Who is this for?
 
@@ -45,6 +45,7 @@ The on-chain contract only sees: commitments, nullifiers, Merkle roots, and proo
 | `r14-core` | Soroban contract: VK registry and proof verification |
 | `r14-transfer` | Soroban contract: deposit and transfer logic |
 | `r14-indexer` | Off-chain service: Merkle tree and event indexing |
+| `r14-zktls` | zkTLS module - TLS attestation + ZK range proofs over web2 data |
 | `r14-cli` | CLI tool wrapping the SDK |
 
 ## Quick links
@@ -53,4 +54,6 @@ The on-chain contract only sees: commitments, nullifiers, Merkle roots, and proo
 - [SDK Reference](/sdk/overview) - Full API surface
 - [CLI Reference](/cli/overview) - All commands
 - [Architecture](/getting-started/architecture) - Stack diagram and data flows
+- [zkTLS](/zktls/overview) - Prove claims about web2 data on-chain
+- [Platform Vision](/concepts/platform) - Dashboard, modules, business model
 - [Core Concepts](/concepts/notes-utxo) - Notes, keys, Merkle tree, Groth16

@@ -21,6 +21,15 @@ const sidebars: SidebarsConfig = {
         'concepts/merkle-tree',
         'concepts/groth16-on-soroban',
         'concepts/protocol-flow',
+        'concepts/platform',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'zkTLS',
+      items: [
+        'zktls/overview',
+        'zktls/integration',
       ],
     },
     {

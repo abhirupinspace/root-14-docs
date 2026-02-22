@@ -63,13 +63,25 @@ Current performance measurements for Root14 on Stellar Testnet.
 | VK `delta_g2` | G2 | 384 chars |
 | Each VK `ic` entry | G1 | 192 chars |
 
+## Circuit Library Metrics
+
+| Circuit | Constraints | Public Inputs |
+|---|---|---|
+| Transfer | 7,638 | 4 (root, nullifier, 2 commitments) |
+| Range | ~500 | 3 (min, max, commitment) |
+| Membership | ~5,000 | 2 (root, commitment) |
+| Ownership | ~237 | 1 (owner_hash) |
+| Preimage | ~237 | 1 (hash) |
+| zkTLS (range) | ~500 | 3 (min, max, commitment) |
+
 ## Test Coverage
 
 | Metric | Value |
 |---|---|
-| Total tests | 39 |
+| Total tests | 100+ |
+| Crates | 10 |
 
-Tests span all crates: `r14-types`, `r14-poseidon`, `r14-circuit`, `r14-sdk`, `r14-core`, `r14-transfer`, and `r14-indexer`.
+Tests span all crates: `r14-types`, `r14-poseidon`, `r14-circuit`, `r14-circuits`, `r14-sdk`, `r14-core`, `r14-transfer`, `r14-zktls`, and `r14-indexer`.
 
 ## Notes
 
