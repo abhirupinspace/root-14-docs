@@ -10,8 +10,8 @@ Current and historical Root14 deployments on Stellar Testnet.
 
 | Component | Value |
 |---|---|
-| r14-core | `CBTFDKV5UOH4CW25DKULXVSLHA6KQHP6AW3QHSGF4QI2HXSHH6NZKN7G` |
-| r14-transfer | `CCBUWWLVJL55IM6DVD3JNU5SSQGJTNB6XN2ZBQ73TGATLJ6HEB7RI5V6` |
+| r14-core | `CALUKVFDMGPD7434O5BG42XHRYRGXSOH7GHW6DXD2IFF33J5FWAYM3GQ` |
+| r14-transfer | `CBRKSW66WY5APVMAG6JY4XL27ZSTOKODFDBZNX6BLIMPRAI7GZXF7ZBI` |
 | circuit_id | `f28f257e3557c197e2ff29c38cd817a12bfef09e54f3c7904e1caf21985b5736` |
 | Network | Stellar Testnet |
 | RPC | `https://soroban-testnet.stellar.org:443` |
@@ -21,8 +21,8 @@ Current and historical Root14 deployments on Stellar Testnet.
 ```bash
 r14 keygen
 r14 config set stellar_secret YOUR_TESTNET_SECRET
-r14 config set core_contract_id CBTFDKV5UOH4CW25DKULXVSLHA6KQHP6AW3QHSGF4QI2HXSHH6NZKN7G
-r14 config set transfer_contract_id CCBUWWLVJL55IM6DVD3JNU5SSQGJTNB6XN2ZBQ73TGATLJ6HEB7RI5V6
+r14 config set core_contract_id CALUKVFDMGPD7434O5BG42XHRYRGXSOH7GHW6DXD2IFF33J5FWAYM3GQ
+r14 config set transfer_contract_id CBRKSW66WY5APVMAG6JY4XL27ZSTOKODFDBZNX6BLIMPRAI7GZXF7ZBI
 ```
 
 If using an already-initialized deployment, skip `r14 init-contract` and proceed directly to deposits and transfers.
@@ -61,8 +61,8 @@ Full SDK, CLI, and high-level client. Current production contracts.
 
 | Component | Contract ID |
 |---|---|
-| r14-core | `CBTFDKV5UOH4CW25DKULXVSLHA6KQHP6AW3QHSGF4QI2HXSHH6NZKN7G` |
-| r14-transfer | `CCBUWWLVJL55IM6DVD3JNU5SSQGJTNB6XN2ZBQ73TGATLJ6HEB7RI5V6` |
+| r14-core | `CALUKVFDMGPD7434O5BG42XHRYRGXSOH7GHW6DXD2IFF33J5FWAYM3GQ` |
+| r14-transfer | `CBRKSW66WY5APVMAG6JY4XL27ZSTOKODFDBZNX6BLIMPRAI7GZXF7ZBI` |
 
 ## Network Details
 

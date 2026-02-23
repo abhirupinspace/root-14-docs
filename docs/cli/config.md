@@ -28,8 +28,8 @@ Sets a configuration value in the wallet file.
 
 ```bash
 r14 config set stellar_secret SXXXX...
-r14 config set core_contract_id CBTFDKV5UOH4CW25DKULXVSLHA6KQHP6AW3QHSGF4QI2HXSHH6NZKN7G
-r14 config set transfer_contract_id CCBUWWLVJL55IM6DVD3JNU5SSQGJTNB6XN2ZBQ73TGATLJ6HEB7RI5V6
+r14 config set core_contract_id CALUKVFDMGPD7434O5BG42XHRYRGXSOH7GHW6DXD2IFF33J5FWAYM3GQ
+r14 config set transfer_contract_id CBRKSW66WY5APVMAG6JY4XL27ZSTOKODFDBZNX6BLIMPRAI7GZXF7ZBI
 r14 config set indexer_url http://localhost:3000
 r14 config set rpc_url https://soroban-testnet.stellar.org:443
 ```
