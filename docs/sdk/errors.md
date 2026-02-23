@@ -4,7 +4,7 @@ sidebar_position: 8
 
 # Errors
 
-All fallible functions in `r14-sdk` return `R14Result<T>`, a type alias for `Result<T, R14Error>`.
+All fallible functions in r14 SDK return `R14Result<T>`, a type alias for `Result<T, R14Error>`.
 
 ## R14Error Enum
 

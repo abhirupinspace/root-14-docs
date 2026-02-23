@@ -163,7 +163,7 @@ let (sp, spi) = serialize_proof_for_soroban(&proof, &public_inputs);
 
 ### Step 4: Register VK and Submit Proof
 
-Use the `r14-sdk` Soroban module to register the VK on `r14-core` and submit proofs. The VK registration returns a `circuit_id` (content-addressed SHA256 hash of the VK), which you pass to the transfer contract for verification.
+Use the r14 SDK Soroban module to register the VK on r14 core and submit proofs. The VK registration returns a `circuit_id` (content-addressed SHA256 hash of the VK), which you pass to the transfer contract for verification.
 
 ```rust
 use r14_sdk::soroban::invoke_contract;

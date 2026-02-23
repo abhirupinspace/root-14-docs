@@ -30,16 +30,16 @@ Root14 is not a single privacy app — it's a **ZK privacy platform for Stellar*
 
 | Component | Status | Crate |
 |---|---|---|
-| Verification registry | Deployed on testnet | `r14-core` |
-| Private transfers | Working E2E | `r14-transfer`, `r14-circuit` |
-| Range proofs | Working | `r14-circuits` |
-| Membership proofs | Working | `r14-circuits` |
-| Ownership proofs | Working | `r14-circuits` |
-| Preimage proofs | Working | `r14-circuits` |
-| zkTLS (mock oracle) | Working | `r14-zktls` |
-| SDK | Wallet, serialization, merkle | `r14-sdk` |
-| Indexer | Event scanning + REST API | `r14-indexer` |
-| CLI | Full command set | `r14-cli` |
+| Verification registry | Deployed on testnet | r14 core |
+| Private transfers | Working E2E | r14 transfer, r14 circuit |
+| Range proofs | Working | r14 circuits |
+| Membership proofs | Working | r14 circuits |
+| Ownership proofs | Working | r14 circuits |
+| Preimage proofs | Working | r14 circuits |
+| zkTLS (mock oracle) | Working | r14 zktls |
+| SDK | Wallet, serialization, merkle | r14 sdk |
+| Indexer | Event scanning + REST API | r14 indexer |
+| CLI | Full command set | r14 cli |
 
 **10 Rust crates. 100+ tests. 6 circuit types. On-chain verifier. CLI. SDK. Indexer. Docs.**
 

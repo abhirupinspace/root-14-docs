@@ -16,7 +16,7 @@ cargo run -p r14-indexer
 
 | Variable | Default | Description |
 |---|---|---|
-| `R14_CONTRACT_ID` | `PLACEHOLDER_CONTRACT_ID` | The `r14-transfer` contract to watch |
+| `R14_CONTRACT_ID` | `PLACEHOLDER_CONTRACT_ID` | The r14 transfer contract to watch |
 | `R14_RPC_URL` | `https://soroban-testnet.stellar.org:443` | Soroban RPC endpoint |
 | `R14_DB_PATH` | `r14-indexer.db` | SQLite database file path |
 | `R14_LISTEN_ADDR` | `0.0.0.0:3000` | HTTP listen address |

@@ -6,7 +6,7 @@ sidebar_position: 2
 
 ## Quick Start
 
-Add `r14-zktls` to your `Cargo.toml`:
+Add r14 zktls to your `Cargo.toml`:
 
 ```toml
 [dependencies]

@@ -69,12 +69,14 @@ const sidebars: SidebarsConfig = {
       type: 'category',
       label: 'Integration Guides',
       items: [
+        'guides/demo-dapp',
         'guides/keygen',
         'guides/deposits',
         'guides/transfers',
         'guides/balance',
         'guides/offline-merkle',
         'guides/custom-circuits',
+        'guides/mcp-server',
       ],
     },
     {

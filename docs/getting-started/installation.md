@@ -12,25 +12,25 @@ Root14 requires Rust edition 2021 (stable or nightly).
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
-## Add r14-sdk
+## Add r14 SDK
 
-Add `r14-sdk` to your `Cargo.toml`:
+Add r14 SDK to your `Cargo.toml`:
 
 ```toml
 [dependencies]
 r14-sdk = { path = "crates/r14-sdk" }
 ```
 
-To include ZK proof generation (pulls in `r14-circuit` automatically):
+To include ZK proof generation (pulls in r14 circuit automatically):
 
 ```toml
 [dependencies]
 r14-sdk = { path = "crates/r14-sdk", features = ["prove"] }
 ```
 
-`r14-sdk` re-exports `r14-types` and `r14-poseidon` - you don't need to depend on them directly.
+r14 SDK re-exports r14 types and r14 poseidon - you don't need to depend on them directly.
 
-## What you get from r14-sdk alone
+## What you get from r14 SDK alone
 
 - Key generation and wallet management
 - Note creation and commitment computation
@@ -60,8 +60,8 @@ Or follow the [official instructions](https://github.com/stellar/stellar-cli#ins
 For on-chain operations you need:
 
 - **Stellar CLI** on `$PATH`
-- **r14-indexer** running instance - for `merkle::compute_new_root` and balance sync
-- **Soroban testnet** - deployed `r14-core` and `r14-transfer` contracts
+- **r14 indexer** running instance - for `merkle::compute_new_root` and balance sync
+- **Soroban testnet** - deployed r14 core and r14 transfer contracts
 - **Funded Stellar account** - testnet account with secret key (`S...`)
 
 These are only needed for on-chain operations. Offline operations (keygen, note creation, merkle computation, serialization) work without them.

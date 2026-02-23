@@ -54,11 +54,11 @@ The scalar field of BLS12-381. All private values (secret keys, nonces, note fie
 
 ## VK
 
-Verification Key for Groth16. Generated during trusted setup and registered on `r14-core`. Contains G1/G2 curve points that the on-chain verifier uses to check proofs. The VK's IC (input commitment) array has length = 1 + number_of_public_inputs.
+Verification Key for Groth16. Generated during trusted setup and registered on r14 core. Contains G1/G2 curve points that the on-chain verifier uses to check proofs. The VK's IC (input commitment) array has length = 1 + number_of_public_inputs.
 
 ## circuit_id
 
-Content-addressed identifier for a verification key: `SHA256(serialized_vk)`. Computed by `r14-core` during VK registration. Used by `r14-transfer` to look up the correct VK when verifying proofs. Current value: `f28f257e3557c197e2ff29c38cd817a12bfef09e54f3c7904e1caf21985b5736`.
+Content-addressed identifier for a verification key: `SHA256(serialized_vk)`. Computed by r14 core during VK registration. Used by r14 transfer to look up the correct VK when verifying proofs. Current value: `f28f257e3557c197e2ff29c38cd817a12bfef09e54f3c7904e1caf21985b5736`.
 
 ## Sparse Merkle Tree
 

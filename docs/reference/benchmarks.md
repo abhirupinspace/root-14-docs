@@ -81,7 +81,7 @@ Current performance measurements for Root14 on Stellar Testnet.
 | Total tests | 100+ |
 | Crates | 10 |
 
-Tests span all crates: `r14-types`, `r14-poseidon`, `r14-circuit`, `r14-circuits`, `r14-sdk`, `r14-core`, `r14-transfer`, `r14-zktls`, and `r14-indexer`.
+Tests span all crates: r14 types, r14 poseidon, r14 circuit, r14 circuits, r14 SDK, r14 core, r14 transfer, r14 zktls, and r14 indexer.
 
 ## Notes
 

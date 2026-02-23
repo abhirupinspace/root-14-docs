@@ -14,7 +14,7 @@ The server sees a normal HTTPS request. The on-chain verifier sees a valid Groth
 
 ## How Root14 Uses zkTLS
 
-Root14's `r14-zktls` crate bridges web2 data into Soroban-verifiable proofs:
+Root14's r14 zktls crate bridges web2 data into Soroban-verifiable proofs:
 
 ```
 1. Fetch    — TLS oracle fetches data from a URL, produces TlsAttestation
@@ -57,7 +57,7 @@ Root14 uses [TLSNotary](https://tlsnotary.org/) as the underlying attestation pr
 - **Selective disclosure**: User chooses which fields to reveal/prove
 - **No server changes**: The web2 server sees a normal HTTPS client
 
-**Current status:** The `r14-zktls` crate ships with a mock oracle that produces real Poseidon commitments and real Groth16 proofs. The TLS attestation layer is simulated. Real TLSNotary integration is the next milestone.
+**Current status:** The r14 zktls crate ships with a mock oracle that produces real Poseidon commitments and real Groth16 proofs. The TLS attestation layer is simulated. Real TLSNotary integration is the next milestone.
 
 ## What You Can Prove
 

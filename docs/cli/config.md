@@ -20,8 +20,8 @@ Sets a configuration value in the wallet file.
 |---|---|
 | `rpc_url` | Soroban RPC endpoint URL |
 | `indexer_url` | Root14 indexer URL |
-| `core_contract_id` | Deployed `r14-core` contract ID |
-| `transfer_contract_id` | Deployed `r14-transfer` contract ID |
+| `core_contract_id` | Deployed r14 core contract ID |
+| `transfer_contract_id` | Deployed r14 transfer contract ID |
 | `stellar_secret` | Stellar signing key (`S...`) |
 
 ### Examples

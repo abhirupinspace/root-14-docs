@@ -96,7 +96,7 @@ let serialized = serialize_proof_for_soroban(&proof);
 pub fn serialize_vk_for_soroban(vk: &VerifyingKey<Bls12_381>) -> SerializedVK
 ```
 
-Converts a Groth16 verification key into its hex-encoded form for registration on the `r14-core` contract.
+Converts a Groth16 verification key into its hex-encoded form for registration on the r14 core contract.
 
 ```rust
 let serialized_vk = serialize_vk_for_soroban(&proving_key.vk);

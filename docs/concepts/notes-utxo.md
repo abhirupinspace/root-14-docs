@@ -30,7 +30,7 @@ pub struct Note {
 
 The on-chain representation of a note is its **commitment**:
 
-In code (`r14-poseidon`):
+In code (r14 poseidon):
 
 ```rust
 pub fn commitment(note: &Note) -> Fr {
@@ -91,7 +91,7 @@ A note moves through four stages:
 
 **Created**: The user calls `Note::new()` locally. The note exists only in their wallet. The commitment is computed but not submitted to any contract.
 
-**Deposited**: The user calls `deposit(cm, new_root)` on the `r14-transfer` contract. The commitment is now anchored on-chain and the indexer picks it up via `DepositEvent`.
+**Deposited**: The user calls `deposit(cm, new_root)` on the r14 transfer contract. The commitment is now anchored on-chain and the indexer picks it up via `DepositEvent`.
 
 **On-chain**: The commitment sits in the Merkle tree. The indexer maintains the full tree and can produce Merkle proofs for any leaf. The note is spendable by whoever knows the secret key that hashes to `owner`.
 

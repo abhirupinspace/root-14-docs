@@ -4,7 +4,7 @@ sidebar_position: 7
 
 # Prove
 
-The `prove` module is gated behind the `prove` Cargo feature. It re-exports ZK circuit construction, Groth16 proving, and serialization utilities from `r14-circuit` and the `serialize` module.
+The `prove` module is gated behind the `prove` Cargo feature. It re-exports ZK circuit construction, Groth16 proving, and serialization utilities from r14 circuit and the `serialize` module.
 
 ## Enabling
 
@@ -21,12 +21,12 @@ All items are available under `r14_sdk::prove::`.
 
 | Item | Source Crate | Description |
 |---|---|---|
-| `setup` | `r14-circuit` | Generate proving key + verification key for the transfer circuit. |
-| `prove` | `r14-circuit` | Generate a Groth16 proof given a `TransferCircuit` and proving key. |
-| `verify_offchain` | `r14-circuit` | Verify a proof locally without submitting on-chain. |
-| `constraint_count` | `r14-circuit` | Returns the number of R1CS constraints in the circuit. |
-| `TransferCircuit` | `r14-circuit` | The arkworks circuit struct for a 1-in-2-out private transfer. |
-| `PublicInputs` | `r14-circuit` | The public inputs struct: root, nullifier, two output commitments. |
+| `setup` | r14 circuit | Generate proving key + verification key for the transfer circuit. |
+| `prove` | r14 circuit | Generate a Groth16 proof given a `TransferCircuit` and proving key. |
+| `verify_offchain` | r14 circuit | Verify a proof locally without submitting on-chain. |
+| `constraint_count` | r14 circuit | Returns the number of R1CS constraints in the circuit. |
+| `TransferCircuit` | r14 circuit | The arkworks circuit struct for a 1-in-2-out private transfer. |
+| `PublicInputs` | r14 circuit | The public inputs struct: root, nullifier, two output commitments. |
 | `serialize_proof_for_soroban` | `serialize` | Convert `Proof<Bls12_381>` to hex strings for Soroban. |
 | `serialize_vk_for_soroban` | `serialize` | Convert `VerifyingKey<Bls12_381>` to hex strings for Soroban. |
 | `SerializedProof` | `serialize` | Hex-encoded proof struct (a, b, c). |

@@ -33,7 +33,7 @@ These are **native host functions**, not WASM implementations. The pairing and m
 
 ## Verification Algorithm
 
-The on-chain verifier in `r14-core` implements the standard Groth16 verification equation:
+The on-chain verifier in r14 core implements the standard Groth16 verification equation:
 
 where `L = IC[0] + MSM(IC[1..], public_inputs)`.
 
@@ -116,8 +116,8 @@ Because pairings and field arithmetic are host functions, the Soroban contracts 
 
 | Contract | WASM Size | Role |
 |----------|-----------|------|
-| `r14-core` | ~7.1 KB | General-purpose Groth16 verifier registry |
-| `r14-transfer` | ~4.7 KB | Private transfer logic, delegates verify to r14-core |
+| r14 core | ~7.1 KB | General-purpose Groth16 verifier registry |
+| r14 transfer | ~4.7 KB | Private transfer logic, delegates verify to r14 core |
 
 These sizes are well under Soroban's WASM size limits. The contracts contain no cryptographic implementations -- they call host functions for all BLS12-381 operations.
 

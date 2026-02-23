@@ -31,7 +31,7 @@ If using an already-initialized deployment, skip `r14 init-contract` and proceed
 
 ### Phase 0 - Core Verifier
 
-Initial deployment of `r14-core` with Groth16 verification.
+Initial deployment of r14 core with Groth16 verification.
 
 | Component | Contract ID |
 |---|---|
@@ -39,7 +39,7 @@ Initial deployment of `r14-core` with Groth16 verification.
 
 ### Phase 1 - Transfer Circuit
 
-Added the transfer circuit and `r14-transfer` contract.
+Added the transfer circuit and r14 transfer contract.
 
 | Component | Contract ID |
 |---|---|

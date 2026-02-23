@@ -31,7 +31,7 @@ r14 deposit <value> [--app-tag <n>] [--local-only]
 2. Creates a `Note` with the given `value`, `app_tag`, wallet's `owner_hash`, and a random nonce.
 3. Computes `commitment = Poseidon(value, app_tag, owner, nonce)`.
 4. Saves the `NoteEntry` to the wallet's `notes` array.
-5. (Unless `--local-only`) Fetches existing leaves from the indexer, computes the new Merkle root, and invokes `deposit(cm, new_root)` on the `r14-transfer` contract.
+5. (Unless `--local-only`) Fetches existing leaves from the indexer, computes the new Merkle root, and invokes `deposit(cm, new_root)` on the r14 transfer contract.
 
 ## Output
 

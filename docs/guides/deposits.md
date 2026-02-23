@@ -53,7 +53,7 @@ save_wallet(&wallet)?;
 
 ### Step 3: Submit On-Chain
 
-Compute the new Merkle root (including the new commitment) and invoke the `deposit` function on the `r14-transfer` contract.
+Compute the new Merkle root (including the new commitment) and invoke the `deposit` function on the r14 transfer contract.
 
 ```rust
 use r14_sdk::merkle::compute_new_root;
@@ -80,7 +80,7 @@ println!("deposit tx: {}", result);
 
 ## What Happens On-Chain
 
-When `deposit` is called on `r14-transfer`:
+When `deposit` is called on r14 transfer:
 
 1. The commitment `cm` is added to the contract's commitment set
 2. The Merkle root is updated to `new_root`

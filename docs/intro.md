@@ -12,7 +12,7 @@ slug: /
 Root14 gives you:
 
 - **Privacy modules** — Transfer, Range, Membership, Ownership, Preimage, zkTLS
-- **Shared verifier** — `r14-core` on Soroban: register any circuit, any app calls `verify()`
+- **Shared verifier** — r14 core on Soroban: register any circuit, any app calls `verify()`
 - **zkTLS bridge** — Prove claims about web2 data (bank balances, IDs) on-chain
 - **Developer SDK** — Wallet, serialization, Merkle proofs, transaction submission
 - **Infrastructure** — Event indexer, CLI, documentation
@@ -37,16 +37,16 @@ The on-chain contract only sees: commitments, nullifiers, Merkle roots, and proo
 
 | Crate | Role |
 |-------|------|
-| `r14-sdk` | Client library - wallet, merkle, soroban, serialization |
-| `r14-circuit` | ZK proof generation and verification (Groth16) |
-| `r14-circuits` | Pre-built circuit library (range, membership, ownership, preimage) |
-| `r14-types` | Core types (Note, SecretKey, MerklePath) - re-exported by SDK |
-| `r14-poseidon` | Poseidon hash functions - re-exported by SDK |
-| `r14-core` | Soroban contract: VK registry and proof verification |
-| `r14-transfer` | Soroban contract: deposit and transfer logic |
-| `r14-indexer` | Off-chain service: Merkle tree and event indexing |
-| `r14-zktls` | zkTLS module - TLS attestation + ZK range proofs over web2 data |
-| `r14-cli` | CLI tool wrapping the SDK |
+| r14 sdk | Client library - wallet, merkle, soroban, serialization |
+| r14 circuit | ZK proof generation and verification (Groth16) |
+| r14 circuits | Pre-built circuit library (range, membership, ownership, preimage) |
+| r14 types | Core types (Note, SecretKey, MerklePath) - re-exported by SDK |
+| r14 poseidon | Poseidon hash functions - re-exported by SDK |
+| r14 core | Soroban contract: VK registry and proof verification |
+| r14 transfer | Soroban contract: deposit and transfer logic |
+| r14 indexer | Off-chain service: Merkle tree and event indexing |
+| r14 zktls | zkTLS module - TLS attestation + ZK range proofs over web2 data |
+| r14 cli | CLI tool wrapping the SDK |
 
 ## Quick links
 

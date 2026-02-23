@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # R14Client
 
-`R14Client` is the high-level entry point for interacting with the Root14 protocol. It handles deposits, balance queries, note syncing, and transfers - coordinating between the on-chain Soroban contracts and the off-chain indexer.
+R14Client is the high-level entry point for interacting with the Root14 protocol. It handles deposits, balance queries, note syncing, and transfers - coordinating between the on-chain Soroban contracts and the off-chain indexer.
 
 ## Struct Definition
 
@@ -24,8 +24,8 @@ pub struct R14Contracts {
 ```
 
 - `indexer_url` - Base URL of the Root14 indexer (e.g. `http://localhost:3001`).
-- `contracts.core` - Contract ID of the `r14-core` Soroban contract.
-- `contracts.transfer` - Contract ID of the `r14-transfer` Soroban contract.
+- `contracts.core` - Contract ID of the r14 core Soroban contract.
+- `contracts.transfer` - Contract ID of the r14 transfer Soroban contract.
 - `stellar_secret` - Stellar secret key (`S...`) used to sign transactions.
 - `network` - Stellar network passphrase or alias (`testnet`, `standalone`, etc.).
 
@@ -82,7 +82,7 @@ pub async fn deposit(
 ) -> R14Result<DepositResult>
 ```
 
-Creates a new note, computes its commitment, and submits a `deposit` call to the `r14-core` contract. The indexer picks up the emitted event and indexes the new leaf.
+Creates a new note, computes its commitment, and submits a `deposit` call to the r14 core contract. The indexer picks up the emitted event and indexes the new leaf.
 
 ```rust
 let owner = r14_sdk::owner_hash(&sk);
@@ -132,7 +132,7 @@ pub async fn transfer_with_proof(
 ) -> R14Result<TransferResult>
 ```
 
-Submits an already-built Groth16 proof to the `r14-transfer` contract. Use this when proof generation happens externally (e.g. in a browser via WASM or on a separate proving server).
+Submits an already-built Groth16 proof to the r14 transfer contract. Use this when proof generation happens externally (e.g. in a browser via WASM or on a separate proving server).
 
 Arguments:
 - `proof` - Serialized Groth16 proof (see [`serialize`](./serialize.md)).
@@ -142,7 +142,7 @@ Arguments:
 
 ## Methods (prove Feature)
 
-These methods are only available when `r14-sdk` is compiled with the `prove` feature.
+These methods are only available when r14 SDK is compiled with the `prove` feature.
 
 ### `transfer`
 
@@ -182,7 +182,7 @@ println!("nullifier: {}", result.nullifier);
 pub async fn init_contracts(&self) -> R14Result<InitResult>
 ```
 
-One-time setup. Generates the Groth16 proving/verification keys, serializes the VK, and calls `register_vk` on the `r14-core` contract followed by `init` on the `r14-transfer` contract.
+One-time setup. Generates the Groth16 proving/verification keys, serializes the VK, and calls `register_vk` on the r14 core contract followed by `init` on the r14 transfer contract.
 
 ```rust
 let init = client.init_contracts().await?;

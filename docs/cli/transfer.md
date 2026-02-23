@@ -34,7 +34,7 @@ r14 transfer <value> <recipient> [--dry-run]
 5. Runs Groth16 setup with deterministic `seed=42` and generates the ZK proof.
 6. Serializes the proof and public inputs for Soroban.
 7. Computes the new Merkle root (appending both output commitments).
-8. Submits `transfer(proof, old_root, nullifier, cm_0, cm_1, new_root)` to the `r14-transfer` contract.
+8. Submits `transfer(proof, old_root, nullifier, cm_0, cm_1, new_root)` to the r14 transfer contract.
 9. Marks the consumed note as spent and adds two new output notes to the wallet.
 
 ## Output

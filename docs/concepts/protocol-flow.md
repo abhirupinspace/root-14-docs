@@ -196,9 +196,9 @@ r14_transfer::transfer(
 
 ### Step 8: Contract validation
 
-The `r14-transfer` contract performs these checks in order:
+The r14 transfer contract performs these checks in order:
 
-The `r14-core.verify()` call runs the Groth16 pairing check using Soroban BLS12-381 host functions (~40M instructions).
+The r14 core `verify()` call runs the Groth16 pairing check using Soroban BLS12-381 host functions (~40M instructions).
 
 ### Step 9: Event emission
 

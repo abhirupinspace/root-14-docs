@@ -38,7 +38,7 @@ The secret key never leaves the local machine. It is stored in the wallet file a
 
 The owner hash is a one-way derivation from the secret key:
 
-In code (`r14-poseidon`):
+In code (r14 poseidon):
 
 ```rust
 pub fn owner_hash(sk: &SecretKey) -> OwnerHash {
@@ -62,7 +62,7 @@ This proves "I know the secret key for this note" without revealing the secret k
 
 The nullifier is the mechanism that prevents double-spending:
 
-In code (`r14-poseidon`):
+In code (r14 poseidon):
 
 ```rust
 pub fn nullifier(sk: &SecretKey, nonce: &Fr) -> Nullifier {
@@ -80,7 +80,7 @@ pub fn nullifier(sk: &SecretKey, nonce: &Fr) -> Nullifier {
 
 ### On-chain Nullifier Tracking
 
-The `r14-transfer` contract maintains a set of spent nullifiers:
+The r14 transfer contract maintains a set of spent nullifiers:
 
 ```rust
 // In r14-transfer contract
