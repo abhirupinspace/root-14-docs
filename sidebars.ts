@@ -70,6 +70,7 @@ const sidebars: SidebarsConfig = {
       label: 'Integration Guides',
       items: [
         'guides/demo-dapp',
+        'guides/build-zk-dapp',
         'guides/keygen',
         'guides/deposits',
         'guides/transfers',
