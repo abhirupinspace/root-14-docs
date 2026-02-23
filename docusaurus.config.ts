@@ -44,6 +44,10 @@ const config: Config = {
     },
     navbar: {
       title: 'Root14',
+      logo: {
+        alt: 'Root14 Logo',
+        src: 'img/logo.svg',
+      },
       items: [
         {
           type: 'docSidebar',
