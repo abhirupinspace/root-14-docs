@@ -13,9 +13,9 @@ Add r14 zktls to your `Cargo.toml`:
 r14-zktls = { path = "crates/r14-zktls" }
 ```
 
-## Mock Oracle (Available Now)
+## Simulated TLS Oracle
 
-The mock oracle simulates a TLS fetch — it produces real Poseidon commitments and real Groth16 proofs, only the TLS attestation itself is simulated.
+The TLS attestation source is simulated — everything downstream is real: Poseidon commitments, Groth16 proofs, and on-chain verification on Stellar testnet.
 
 ```rust
 use r14_zktls::{mock_fetch, setup, prove_range, verify};

@@ -30,7 +30,7 @@ The key insight: the zkTLS circuit **is** the range circuit. The attestation pro
 ```
 ┌─────────────┐     ┌──────────────┐     ┌──────────────┐
 │  Web2 Server│────→│  TLS Oracle  │────→│ TlsAttestation│
-│  (HTTPS)    │     │  (mock/real) │     │  value+nonce  │
+│  (HTTPS)    │     │              │     │  value+nonce  │
 └─────────────┘     └──────────────┘     └──────┬───────┘
                                                 │
                                     ┌───────────▼──────────┐
@@ -57,7 +57,7 @@ Root14 uses [TLSNotary](https://tlsnotary.org/) as the underlying attestation pr
 - **Selective disclosure**: User chooses which fields to reveal/prove
 - **No server changes**: The web2 server sees a normal HTTPS client
 
-**Current status:** The r14 zktls crate ships with a mock oracle that produces real Poseidon commitments and real Groth16 proofs. The TLS attestation layer is simulated. Real TLSNotary integration is the next milestone.
+**Current status:** The TLS attestation source is simulated (mock oracle), but everything downstream is real — Poseidon commitments, Groth16 proofs, and on-chain verification on Stellar testnet. The `r14-examples/zktls` demo performs a full deposit + private transfer on testnet. Real TLSNotary integration is the next milestone.
 
 ## What You Can Prove
 

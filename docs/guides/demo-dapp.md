@@ -1,35 +1,36 @@
 ---
 sidebar_position: 0
 title: r14-examples
-description: Two focused Rust demos showcasing Root14's ZK privacy primitives
+description: Two Rust demos — offline Groth16 payments and real Stellar testnet zkTLS flow
 ---
 
 # r14-examples
 
-A companion repo with runnable Rust demos for Root14's core ZK features — private payments with Groth16 proofs and Poseidon commitments for data privacy (zkTLS-style).
+Runnable Rust demos for Root14's ZK privacy features on Stellar.
 
 ## Repo structure
 
-| Path | What it does |
-|---|---|
-| `private-payments/` | Two-party shielded payment: keygen → deposit → ZK transfer → balance check |
-| `zktls/` | Poseidon commitment over private web2 data, simulated range proof flow |
+| Path | What it does | Network |
+|---|---|---|
+| `private-payments/` | Two-party shielded payment: keygen → deposit → Groth16 transfer → balance | Offline |
+| `zktls/` | TLS oracle → Poseidon commitment → testnet deposit → private ZK transfer | Stellar testnet |
 
 ## Prerequisites
 
 - **Rust** 1.75+ with `cargo`
 - ~2 GB RAM (Groth16 trusted setup is memory-intensive)
+- **For zktls only:** a configured wallet at `~/.r14/wallet.json` — run `r14_keygen` then `r14_config_set` for `stellar_secret`, `core_contract_id`, and `transfer_contract_id`
 
 ## Quick start
 
 ```bash
-git clone https://github.com/nickklos10/r14-examples.git
-cd r14-examples
+git clone https://github.com/abhirupinspace/r14-example.git
+cd r14-example
 ```
 
 ### Private payments
 
-Full two-party payment flow with Groth16 proof generation, offline:
+Full two-party payment flow with Groth16 proof generation (offline — no testnet required):
 
 ```bash
 cargo run -p private-payments
@@ -71,7 +72,9 @@ user_b:
 
 ### zkTLS
 
-Demonstrates Poseidon commitments over private web2 data — the building block for proving facts about off-chain credentials without revealing them:
+End-to-end flow: TLS oracle → Poseidon commitment → Stellar testnet deposit → private ZK transfer with Groth16 proof.
+
+**Prerequisites:** a configured wallet at `~/.r14/wallet.json` (run `r14_keygen` + `r14_config_set` first).
 
 ```bash
 cargo run -p zktls
@@ -80,6 +83,11 @@ cargo run -p zktls
 **Sample output:**
 
 ```
+=== 0. Load Wallet ===
+owner_hash: 0x0077a584480a34...
+rpc:        https://soroban-testnet.stellar.org
+indexer:    http://localhost:3000
+
 === 1. TLS Oracle: Fetch Private Data ===
 source:     api.examplebank.com/balance
 field:      account_balance_usd
@@ -91,24 +99,37 @@ commitment: 0x2f8a1b3c4d5e6f7a8b9c0d1e2f3a4b5c...
 blinding:   [SECRET]
 (commit = Poseidon(value, blinding) — hiding + binding)
 
-=== 3. Range Proof: balance > 10000 ===
-claim:      "balance > 10000"
-status:     PASS
+=== 3. Deposit 15000 on Stellar Testnet ===
+commitment: 0x41813dee706b4b...
+tx:         success
+deposited 15000 as shielded note
 
-=== 4. Verification Summary ===
-┌─────────────────┬────────────────────────────────────────┐
-│ Claim           │ balance > 10000                        │
-│ Value revealed  │ NOTHING                                │
-│ Proof valid     │ true                                   │
-└─────────────────┴────────────────────────────────────────┘
+=== 4. Balance Check ===
+total: 15000
+  note 15000 | on_chain=true | tag=1
+
+=== 5. Private Transfer (Groth16 ZK Proof) ===
+bob owner:  0x00a1c3f920b8e7...
+amount:     5000
+generating Groth16 proof...
+nullifier:  0x42d39245306fdd...
+recipient:  0x3e8a7b6c5d4e...
+change:     0x48f69c81b79b...
+tx:         success
+
+=== 6. Final Balance ===
+total: 10000
+  note 10000 | on_chain=true | tag=1
 ```
 
 **What it demonstrates:**
 
-1. A mock TLS oracle fetches private data (bank balance)
-2. The prover commits to the value with `Poseidon(value, blinding)` — hiding and binding
-3. A range claim is checked locally (full range proof circuit is a future addition)
-4. The verifier sees the commitment and proof result but **never learns the value**
+1. Loads wallet config and connects to Stellar testnet
+2. A TLS oracle fetches private data (bank balance)
+3. The prover commits to the value with `Poseidon(value, blinding)` — hiding and binding
+4. The committed value is deposited as a real shielded note on Stellar testnet
+5. A Groth16 ZK proof privately transfers part of the balance to a second user
+6. Balance updates reflect the transfer — **value never revealed on-chain**
 
 ## Running tests
 
