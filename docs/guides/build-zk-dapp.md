@@ -51,21 +51,21 @@ use r14_sdk::{owner_hash, SecretKey};
 
 let mut rng = crypto_rng();
 
-// Alice
-let alice_sk = SecretKey::random(&mut rng);
-let alice_owner = owner_hash(&alice_sk);
-println!("Alice owner_hash: {}", fr_to_hex(&alice_owner.0));
+// Sender
+let sender_sk = SecretKey::random(&mut rng);
+let sender_owner = owner_hash(&sender_sk);
+println!("sender owner_hash: {}", fr_to_hex(&sender_owner.0));
 
-// Bob
-let bob_sk = SecretKey::random(&mut rng);
-let bob_owner = owner_hash(&bob_sk);
-println!("Bob   owner_hash: {}", fr_to_hex(&bob_owner.0));
+// Receiver
+let receiver_sk = SecretKey::random(&mut rng);
+let receiver_owner = owner_hash(&receiver_sk);
+println!("receiver owner_hash: {}", fr_to_hex(&receiver_owner.0));
 ```
 
 **Output:**
 ```
-Alice owner_hash: 0x0077a584480a34385ee7920e...
-Bob   owner_hash: 0x00a1c3f920b8e74f21dc0ab5...
+sender owner_hash: 0x0077a584480a34385ee7920e...
+receiver owner_hash: 0x00a1c3f920b8e74f21dc0ab5...
 ```
 
 `owner_hash` is a one-way Poseidon hash of the secret key. It's published on-chain as the note owner — the secret key never leaves your machine.
@@ -77,9 +77,10 @@ Create a UTXO-style `Note` and compute its Poseidon commitment. Only the commitm
 ```rust
 use r14_sdk::{commitment, Note};
 
-let alice_note = Note::new(1000, 1, alice_owner.0, &mut rng);
-let alice_cm = commitment(&alice_note);
-println!("deposit 1000, commitment: {}...", &fr_to_hex(&alice_cm)[..18]);
+let deposit_value = 1000u64;
+let sender_note = Note::new(deposit_value, 1, sender_owner.0, &mut rng);
+let sender_cm = commitment(&sender_note);
+println!("deposit {}, commitment: {}...", sender_note.value, &fr_to_hex(&sender_cm)[..18]);
 ```
 
 **Output:**
@@ -91,26 +92,26 @@ deposit 1000, commitment: 0x41813dee706b4b...
 
 ## 4. Private transfer — Merkle path + Groth16 proof
 
-Transfer 300 from Alice to Bob. This requires:
+Transfer value from sender to receiver. This requires:
 1. Reconstructing the consumed note
 2. Building a Merkle membership path
 3. Creating two output notes (recipient + change)
 4. Generating a Groth16 proof
 
 ```rust
-use r14_sdk::wallet::{self, NoteEntry};
+use r14_sdk::wallet;
 use r14_sdk::{merkle, MerklePath, MERKLE_DEPTH};
 use ark_std::rand::{rngs::StdRng, SeedableRng};
 
 let transfer_value = 300u64;
-let change_value = 1000 - transfer_value; // 700
+let change_value = sender_note.value - transfer_value;
 
 // Reconstruct consumed note from stored fields
 let consumed = Note::with_nonce(
-    alice_note.value,
-    alice_note.app_tag,
-    alice_note.owner,
-    alice_note.nonce,
+    sender_note.value,
+    sender_note.app_tag,
+    sender_note.owner,
+    sender_note.nonce,
 );
 
 // Build Merkle path (single-leaf tree for this demo)
@@ -121,18 +122,18 @@ let path = MerklePath {
 };
 
 // Output notes
-let bob_note = Note::new(transfer_value, 1, bob_owner.0, &mut rng);
-let alice_change = Note::new(change_value, 1, alice_owner.0, &mut rng);
+let receiver_note = Note::new(transfer_value, 1, receiver_owner.0, &mut rng);
+let sender_change = Note::new(change_value, 1, sender_owner.0, &mut rng);
 
 // Groth16 trusted setup + proof generation
 println!("generating Groth16 proof...");
 let (pk, vk) = r14_sdk::prove::setup(&mut StdRng::seed_from_u64(42));
 let (proof, public_inputs) = r14_sdk::prove::prove(
     &pk,
-    alice_sk.0,
+    sender_sk.0,
     consumed,
     path,
-    [bob_note.clone(), alice_change.clone()],
+    [receiver_note.clone(), sender_change.clone()],
     &mut rng,
 );
 
@@ -148,9 +149,9 @@ nullifier: 0x42d39245306fdd...
 ```
 
 The proof proves three things without revealing any private data:
-1. Alice owns the consumed note (knows the secret key behind `owner_hash`)
+1. The sender owns the consumed note (knows the secret key behind `owner_hash`)
 2. The consumed note exists in the Merkle tree (membership proof)
-3. Output values balance: `input (1000) = output₀ (300) + output₁ (700)`
+3. Output values balance: `input = output₀ (transfer) + output₁ (change)`
 
 ## 5. Verify proof
 
@@ -228,7 +229,7 @@ Here's the complete `main.rs`:
 ```rust
 use ark_ff::UniformRand;
 use ark_std::rand::{rngs::StdRng, SeedableRng};
-use r14_sdk::wallet::{self, crypto_rng, fr_to_hex, NoteEntry};
+use r14_sdk::wallet::{self, crypto_rng, fr_to_hex};
 use r14_sdk::{commitment, hash2, merkle, owner_hash};
 use r14_sdk::{MerklePath, Note, SecretKey, MERKLE_DEPTH};
 
@@ -240,26 +241,30 @@ async fn main() -> anyhow::Result<()> {
 
     // ── 1. Keygen ───────────────────────────────────────────────────────
     println!("=== 1. Keygen ===");
-    let alice_sk = SecretKey::random(&mut rng);
-    let alice_owner = owner_hash(&alice_sk);
-    let bob_sk = SecretKey::random(&mut rng);
-    let bob_owner = owner_hash(&bob_sk);
-    println!("Alice: {}", fr_to_hex(&alice_owner.0));
-    println!("Bob:   {}", fr_to_hex(&bob_owner.0));
+    let sender_sk = SecretKey::random(&mut rng);
+    let sender_owner = owner_hash(&sender_sk);
+    let receiver_sk = SecretKey::random(&mut rng);
+    let receiver_owner = owner_hash(&receiver_sk);
+    println!("sender:   {}", fr_to_hex(&sender_owner.0));
+    println!("receiver: {}", fr_to_hex(&receiver_owner.0));
 
     // ── 2. Shielded deposit ─────────────────────────────────────────────
-    println!("\n=== 2. Deposit 1000 ===");
-    let alice_note = Note::new(1000, 1, alice_owner.0, &mut rng);
-    let alice_cm = commitment(&alice_note);
-    println!("commitment: {}...", &fr_to_hex(&alice_cm)[..18]);
+    let deposit_value = 1000u64;
+    println!("\n=== 2. Deposit {} ===", deposit_value);
+    let sender_note = Note::new(deposit_value, 1, sender_owner.0, &mut rng);
+    let sender_cm = commitment(&sender_note);
+    println!("commitment: {}...", &fr_to_hex(&sender_cm)[..18]);
 
-    // ── 3. Private transfer (300 → Bob, 700 → Alice change) ────────────
-    println!("\n=== 3. Transfer 300 to Bob ===");
+    // ── 3. Private transfer ─────────────────────────────────────────────
+    let transfer_value = 300u64;
+    let change_value = sender_note.value - transfer_value;
+    println!("\n=== 3. Transfer {} to receiver ===", transfer_value);
+
     let consumed = Note::with_nonce(
-        alice_note.value,
-        alice_note.app_tag,
-        alice_note.owner,
-        alice_note.nonce,
+        sender_note.value,
+        sender_note.app_tag,
+        sender_note.owner,
+        sender_note.nonce,
     );
 
     let empty_fr = wallet::hex_to_fr(&merkle::empty_root_hex())?;
@@ -268,17 +273,17 @@ async fn main() -> anyhow::Result<()> {
         indices: vec![false; MERKLE_DEPTH],
     };
 
-    let bob_note = Note::new(300, 1, bob_owner.0, &mut rng);
-    let alice_change = Note::new(700, 1, alice_owner.0, &mut rng);
+    let receiver_note = Note::new(transfer_value, 1, receiver_owner.0, &mut rng);
+    let sender_change = Note::new(change_value, 1, sender_owner.0, &mut rng);
 
     println!("generating Groth16 proof...");
     let (pk, vk) = r14_sdk::prove::setup(&mut StdRng::seed_from_u64(42));
     let (proof, pi) = r14_sdk::prove::prove(
         &pk,
-        alice_sk.0,
+        sender_sk.0,
         consumed,
         path,
-        [bob_note.clone(), alice_change.clone()],
+        [receiver_note.clone(), sender_change.clone()],
         &mut rng,
     );
     println!("nullifier: {}...", &fr_to_hex(&pi.nullifier)[..18]);
@@ -305,8 +310,8 @@ async fn main() -> anyhow::Result<()> {
 
     // ── 7. Final balances ───────────────────────────────────────────────
     println!("\n=== 7. Final Balances ===");
-    println!("Alice: 700 (change note)");
-    println!("Bob:   300 (received note)");
+    println!("sender:   {} (change note)", sender_change.value);
+    println!("receiver: {} (received note)", receiver_note.value);
     println!("\nAll operations completed with zero knowledge.");
 
     Ok(())
